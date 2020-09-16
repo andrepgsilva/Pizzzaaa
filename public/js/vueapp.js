@@ -212,14 +212,56 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("header", { staticClass: "bg-red-600" }, [
     _c("div", { staticClass: "flex items-center justify-between px-4 py-3" }, [
-      _c("div", { staticClass: "flex" }, [
-        _c("img", {
-          staticClass: "h-10",
-          attrs: { src: _vm.logosrc, alt: "Pizzzaaa company logo" }
-        })
-      ]),
+      _c(
+        "div",
+        { staticClass: "flex" },
+        [
+          _c("router-link", { attrs: { to: "/" } }, [
+            _c("img", {
+              staticClass: "h-10",
+              attrs: { src: _vm.logosrc, alt: "Pizzzaaa company logo" }
+            })
+          ])
+        ],
+        1
+      ),
       _vm._v(" "),
-      _vm._m(0),
+      _c(
+        "div",
+        { staticClass: "hidden md:flex lg:flex items-center" },
+        [
+          _c(
+            "router-link",
+            {
+              staticClass:
+                "inline-block text-md px-4 py-2 leading-none border rounded text-white hover:text-gray-100 bg-yellow-300 border-yellow-300 hover:border-transparent lg:mt-0",
+              attrs: { to: { name: "products" } }
+            },
+            [_vm._v("Buy now!")]
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass:
+                "block lg:inline-block lg:mt-0 text-white hover:text-white ml-4",
+              attrs: { href: "#responsive-header" }
+            },
+            [_vm._v("Login")]
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass:
+                "block lg:inline-block lg:mt-0 text-white hover:text-white ml-4",
+              attrs: { href: "#responsive-header" }
+            },
+            [_vm._v("Sign up")]
+          )
+        ],
+        1
+      ),
       _vm._v(" "),
       _c("div", { staticClass: "sm:block md:hidden lg:hidden" }, [
         _c(
@@ -273,11 +315,11 @@ var render = function() {
       { staticClass: "px-2 pt-2 pb-4", class: _vm.isOpen ? "block" : "hidden" },
       [
         _c(
-          "a",
+          "router-link",
           {
             staticClass:
               "inline-block text-md px-4 py-2 leading-none border rounded bg-yellow-400 hover:text-gray-100 border-yellow-400 hover:border-transparent mt-4 lg:mt-0",
-            attrs: { href: "#" }
+            attrs: { to: { name: "products" } }
           },
           [_vm._v("Buy now!")]
         ),
@@ -301,48 +343,12 @@ var render = function() {
           },
           [_vm._v("Sign up")]
         )
-      ]
+      ],
+      1
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "hidden md:flex lg:flex items-center" }, [
-      _c(
-        "a",
-        {
-          staticClass:
-            "inline-block text-md px-4 py-2 leading-none border rounded text-white hover:text-gray-100 bg-yellow-300 border-yellow-300 hover:border-transparent lg:mt-0",
-          attrs: { href: "#" }
-        },
-        [_vm._v("Buy now!")]
-      ),
-      _vm._v(" "),
-      _c(
-        "a",
-        {
-          staticClass:
-            "block lg:inline-block lg:mt-0 text-white hover:text-white ml-4",
-          attrs: { href: "#responsive-header" }
-        },
-        [_vm._v("Login")]
-      ),
-      _vm._v(" "),
-      _c(
-        "a",
-        {
-          staticClass:
-            "block lg:inline-block lg:mt-0 text-white hover:text-white ml-4",
-          attrs: { href: "#responsive-header" }
-        },
-        [_vm._v("Sign up")]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
