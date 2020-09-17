@@ -7,8 +7,10 @@ import router from './routes';
 import store from './store';
 import Home from './views/Home';
 import Products from './views/Products';
+import Paginate from 'vuejs-paginate'
 
 Vue.use(VueRouter);
+Vue.component('Paginate', Paginate);
 
 const app = new Vue({
   el: '#app',
@@ -16,7 +18,7 @@ const app = new Vue({
   components: {
     'vueapp': VueApp,
     'Home': Home,
-    'Products': Products
+    'Products': Products,
   },
   router,
   store,

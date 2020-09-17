@@ -10,10 +10,8 @@ class ProductsController extends Controller
 {
     public function index()
     {
-        $productsResource = ProductResource::collection(Product::highestPrices());
+        $productsResource = ProductResource::collection(Product::highestPrices()->paginate(15));
         
-        return $productsResource;
-        // TODO Size
-        // TODO Return ingredients and show them
+        return $productsResource; 
     }
 }

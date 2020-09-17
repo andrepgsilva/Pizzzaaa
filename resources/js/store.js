@@ -17,9 +17,15 @@ const store = new Vuex.Store({
   },
 
   actions: {
-    getProducts(context) {
+    getProducts(context, page = '') {
+      let getProductsLink = 'http://pizzzaaa.test/api/products';
+      
+      if (page) {
+        getProductsLink += `?page=${page}`;
+      }
+
       return new Promise((resolve, reject) => {
-        Axios.get('http://pizzzaaa.test/api/products')
+        Axios.get(getProductsLink)
         .then(response => {
           context.commit('addProducts', response.data)
           resolve(response.data)
