@@ -2112,9 +2112,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2147,7 +2144,10 @@ __webpack_require__.r(__webpack_exports__);
     joinPizzaIngredientsNames: function joinPizzaIngredientsNames(ingredientsGroup) {
       return ingredientsGroup.map(function (ingredient) {
         return ingredient.name;
-      }).join(', ');
+      }).join(", ");
+    },
+    getLimitForStock: function getLimitForStock(productStock) {
+      return productStock < 10 ? productStock : 10;
     }
   }
 });
@@ -2232,7 +2232,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".page-item {\n  padding: 6px;\n  background-color: #e02424;\n  width: 32px;\n  color: #fdf5d8;\n  text-align: center;\n  border: 1px solid #63606042;\n  border-radius: 2px;\n}\n.page-item:hover {\n  background-color: #e02424e8;\n}\n.page-item > a:focus, .page-item > a:active {\n  outline: none;\n}\n.page-item.active {\n  background-color: #FACA15;\n}\n.pagination li:first-child, .pagination li:last-child {\n  padding: 6px;\n  background-color: #e02424;\n  color: #fdf5d8;\n  text-align: center;\n  border: 1px solid #63606042;\n  border-radius: 2px;\n}\n.pagination li:first-child:hover, .pagination li:last-child:hover {\n  background-color: #e02424e8;\n}\n.pagination li:first-child.disabled, .pagination li:last-child.disabled {\n  background-color: #b51919;\n}\n.pagination li:first-child > a:focus, .pagination li:last-child > a:focus {\n  outline: none;\n}\n", ""]);
+exports.push([module.i, ".page-item {\n  padding: 6px;\n  background-color: #e02424;\n  width: 32px;\n  color: #fdf5d8;\n  text-align: center;\n  border: 1px solid #63606042;\n  border-radius: 2px;\n}\n.page-item:hover {\n  background-color: #e02424e8;\n}\n.page-item > a:focus,\n.page-item > a:active {\n  outline: none;\n}\n.page-item.active {\n  background-color: #faca15;\n}\n.pagination li:first-child,\n.pagination li:last-child {\n  padding: 6px;\n  background-color: #e02424;\n  color: #fdf5d8;\n  text-align: center;\n  border: 1px solid #63606042;\n  border-radius: 2px;\n}\n.pagination li:first-child:hover,\n.pagination li:last-child:hover {\n  background-color: #e02424e8;\n}\n.pagination li:first-child.disabled,\n.pagination li:last-child.disabled {\n  background-color: #b51919;\n}\n.pagination li:first-child > a:focus,\n.pagination li:last-child > a:focus {\n  outline: none;\n}\n", ""]);
 
 // exports
 
@@ -20896,20 +20896,14 @@ var render = function() {
                     "select",
                     {
                       staticClass:
-                        "bg-white block border border-gray-400 focus:outline-none focus:shadow-outline hover:border-gray-500 leading-tight mt-3 pr-8 px-4 py-1 rounded shadow",
+                        "bg-white block border border-gray-400 focus:outline-none hover:border-gray-500 leading-tight mt-3 pr-8 px-4 py-1 rounded shadow",
                       attrs: { name: "pizzaSizes" }
                     },
                     _vm._l(product.sizes, function(size) {
                       return _c(
                         "option",
                         { key: size.id, domProps: { value: size.id } },
-                        [
-                          _vm._v(
-                            "\n              " +
-                              _vm._s(size.name) +
-                              "\n              "
-                          )
-                        ]
+                        [_vm._v(_vm._s(size.name))]
                       )
                     }),
                     0
@@ -20919,16 +20913,26 @@ var render = function() {
                     "select",
                     {
                       staticClass:
-                        "bg-white block border border-gray-400 focus:outline-none focus:shadow-outline hover:border-gray-500 leading-tight mt-3 pr-8 px-4 py-1 rounded shadow",
-                      attrs: { name: "pizzaSizes" }
+                        "bg-white block border border-gray-400 focus:outline-none hover:border-gray-500 leading-tight mt-3 pr-8 px-4 py-1 rounded shadow",
+                      attrs: { name: "quantity" }
                     },
-                    [
-                      _c("option", { domProps: { value: 1 } }, [
-                        _vm._v(
-                          "\n              " + _vm._s(1) + "\n              "
+                    _vm._l(
+                      _vm.getLimitForStock(product.stock.quantity),
+                      function(counter) {
+                        return _c(
+                          "option",
+                          { key: counter, domProps: { value: counter } },
+                          [
+                            _vm._v(
+                              "\n              " +
+                                _vm._s(counter) +
+                                "\n            "
+                            )
+                          ]
                         )
-                      ])
-                    ]
+                      }
+                    ),
+                    0
                   )
                 ]),
                 _vm._v(" "),
@@ -20936,13 +20940,13 @@ var render = function() {
                   "div",
                   { staticClass: "flex justify-between items-center mt-4" },
                   [
-                    _c("p", [_vm._v(" " + _vm._s(product.price))]),
+                    _c("p", [_vm._v(_vm._s(product.price))]),
                     _vm._v(" "),
                     _c(
                       "button",
                       {
                         staticClass:
-                          "bg-red-600 px-6 py-2 rounded text-gray-100 font-semibold"
+                          "bg-red-600 hover:bg-red-500 px-6 py-2 rounded text-gray-100 font-semibold focus:outline-none"
                       },
                       [_vm._v("Add to Cart")]
                     )

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Size;
+use App\Models\Stock;
 use App\Models\Ingredient;
 use App\Finance\MoneyHandler;
 use App\Scopes\Product\Scopes;
@@ -29,5 +30,10 @@ class Product extends Model
     public function sizes()
     {
         return $this->belongsToMany(Size::class)->withTimestamps();
+    }
+
+    public function stock()
+    {
+        return $this->hasOne(Stock::class);
     }
 }

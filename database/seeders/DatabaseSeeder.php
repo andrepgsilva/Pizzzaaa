@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Ingredient;
 use App\Models\Product;
 use App\Models\Size;
+use App\Models\Stock;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -49,6 +50,11 @@ class DatabaseSeeder extends Seeder
             $family->id,
         ]);
 
+        Stock::create([
+            'product_id' => $fourCheeses->id,
+            'quantity' => 4,
+        ]);
+
         $chicken = Product::create([
             'name' => 'Chicken',
             'description' => 'Simple and delicious!',
@@ -67,6 +73,11 @@ class DatabaseSeeder extends Seeder
             $family->id,
         ]);
 
+        Stock::create([
+            'product_id' => $chicken->id,
+            'quantity' => 6,
+        ]);
+
         $chocolate = Product::create([
             'name' => 'Chocolate',
             'description' => 'So sweeetttt!',
@@ -83,6 +94,11 @@ class DatabaseSeeder extends Seeder
             $small->id,
             $medium->id,
             $family->id,
+        ]);
+
+        Stock::create([
+            'product_id' => $chocolate->id,
+            'quantity' => 2,
         ]);
 
         $meatAndFries = Product::create([
@@ -104,6 +120,11 @@ class DatabaseSeeder extends Seeder
             $family->id,
         ]);
 
+        Stock::create([
+            'product_id' => $meatAndFries->id,
+            'quantity' => 8,
+        ]);
+
         $portuguesa = Product::create([
             'name' => 'Portuguesa',
             'description' => 'The amazing portuguese pizza!',
@@ -120,6 +141,11 @@ class DatabaseSeeder extends Seeder
         $portuguesa->ingredients()->attach([
             $olive->id,
             $mozzarela->id,
+        ]);
+
+        Stock::create([
+            'product_id' => $portuguesa->id,
+            'quantity' => 1,
         ]);
     }
 }
