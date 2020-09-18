@@ -10,7 +10,7 @@ class Ingredient extends Model
 {
     use HasFactory;
 
-    public function Products()
+    public function products()
     {
         return $this->belongsToMany(Product::class)->withTimestamps();
     }

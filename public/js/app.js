@@ -1918,12 +1918,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Card',
   props: {
     imagesrc: String,
     title: String,
-    description: String
+    description: String,
+    subDescription: String
   }
 });
 
@@ -2077,6 +2083,38 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2105,6 +2143,11 @@ __webpack_require__.r(__webpack_exports__);
       this.$store.dispatch("getProducts", toPage).then(function (response) {
         _this2.products = response.data;
       });
+    },
+    joinPizzaIngredientsNames: function joinPizzaIngredientsNames(ingredientsGroup) {
+      return ingredientsGroup.map(function (ingredient) {
+        return ingredient.name;
+      }).join(', ');
     }
   }
 });
@@ -2151,7 +2194,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".card[data-v-b9bc2c0a] {\n  min-width: 273px;\n}\n", ""]);
+exports.push([module.i, ".card[data-v-b9bc2c0a] {\n  min-width: 273px;\n  max-height: 520px;\n}\n", ""]);
 
 // exports
 
@@ -20539,15 +20582,30 @@ var render = function() {
     [
       _c("img", { staticClass: "w-full h-30", attrs: { src: _vm.imagesrc } }),
       _vm._v(" "),
-      _c("div", { staticClass: "px-6 py-4" }, [
-        _c("div", { staticClass: "font-bold text-xl mb-2" }, [
-          _vm._v(_vm._s(_vm.title))
-        ]),
-        _vm._v(" "),
-        _c("p", { staticClass: "text-gray-700 text-base" }, [
-          _vm._v(_vm._s(_vm.description))
-        ])
-      ])
+      _c(
+        "div",
+        { staticClass: "px-6 py-4" },
+        [
+          _c("div", { staticClass: "font-bold text-xl mb-2" }, [
+            _vm._v(_vm._s(_vm.title))
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "text-gray-700 text-lg" }, [
+            _vm._v(_vm._s(_vm.description))
+          ]),
+          _vm._v(" "),
+          _c(
+            "p",
+            {
+              staticClass: "mt-3 text-gray-800 italic font-semibold text-base"
+            },
+            [_vm._v(_vm._s(_vm.subDescription))]
+          ),
+          _vm._v(" "),
+          _vm._t("default")
+        ],
+        2
+      )
     ]
   )
 }
@@ -20819,14 +20877,79 @@ var render = function() {
               "flex flex-wrap sm:ml-1/12 md:ml-1/12 lg:ml-1/12 sm:w-3/4 md:w-3/4 lg:w-3/4"
           },
           _vm._l(_vm.products, function(product) {
-            return _c("Card", {
-              key: product.id,
-              attrs: {
-                imagesrc: product.image_url,
-                title: product.name,
-                description: product.description
-              }
-            })
+            return _c(
+              "Card",
+              {
+                key: product.id,
+                attrs: {
+                  imagesrc: product.image_url,
+                  title: product.name,
+                  description: product.description,
+                  subDescription: _vm.joinPizzaIngredientsNames(
+                    product.ingredients
+                  )
+                }
+              },
+              [
+                _c("div", { staticClass: "flex justify-between mt-2" }, [
+                  _c(
+                    "select",
+                    {
+                      staticClass:
+                        "bg-white block border border-gray-400 focus:outline-none focus:shadow-outline hover:border-gray-500 leading-tight mt-3 pr-8 px-4 py-1 rounded shadow",
+                      attrs: { name: "pizzaSizes" }
+                    },
+                    _vm._l(product.sizes, function(size) {
+                      return _c(
+                        "option",
+                        { key: size.id, domProps: { value: size.id } },
+                        [
+                          _vm._v(
+                            "\n              " +
+                              _vm._s(size.name) +
+                              "\n              "
+                          )
+                        ]
+                      )
+                    }),
+                    0
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      staticClass:
+                        "bg-white block border border-gray-400 focus:outline-none focus:shadow-outline hover:border-gray-500 leading-tight mt-3 pr-8 px-4 py-1 rounded shadow",
+                      attrs: { name: "pizzaSizes" }
+                    },
+                    [
+                      _c("option", { domProps: { value: 1 } }, [
+                        _vm._v(
+                          "\n              " + _vm._s(1) + "\n              "
+                        )
+                      ])
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "flex justify-between items-center mt-4" },
+                  [
+                    _c("p", [_vm._v(" " + _vm._s(product.price))]),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "bg-red-600 px-6 py-2 rounded text-gray-100 font-semibold"
+                      },
+                      [_vm._v("Add to Cart")]
+                    )
+                  ]
+                )
+              ]
+            )
           }),
           1
         ),

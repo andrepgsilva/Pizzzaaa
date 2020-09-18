@@ -32,7 +32,6 @@ class DatabaseSeeder extends Seeder
         $fourCheeses = Product::create([
             'name' => 'Four Cheeses',
             'description' => 'For the lovers of cheese!',
-            'size' => 'small',
             'price' => 2000, 
             'image_url' => asset('img/pizzas/4_cheeses.jpeg')    
         ]);
@@ -53,7 +52,6 @@ class DatabaseSeeder extends Seeder
         $chicken = Product::create([
             'name' => 'Chicken',
             'description' => 'Simple and delicious!',
-            'size' => 'small',
             'price' => 3000, 
             'image_url' => asset('img/pizzas/chicken.jpg')     
         ]);
@@ -72,7 +70,6 @@ class DatabaseSeeder extends Seeder
         $chocolate = Product::create([
             'name' => 'Chocolate',
             'description' => 'So sweeetttt!',
-            'size' => 'small',
             'price' => 1522, 
             'image_url' => asset('img/pizzas/chocolate.jpg')     
         ]);
@@ -91,7 +88,6 @@ class DatabaseSeeder extends Seeder
         $meatAndFries = Product::create([
             'name' => 'Meat and Fries',
             'description' => 'One of our best pizzas!',
-            'size' => 'small',
             'price' => 4000, 
             'image_url' => asset('img/pizzas/meat_and_fries.jpeg')     
         ]);
@@ -111,7 +107,6 @@ class DatabaseSeeder extends Seeder
         $portuguesa = Product::create([
             'name' => 'Portuguesa',
             'description' => 'The amazing portuguese pizza!',
-            'size' => 'small',
             'price' => 2320, 
             'image_url' => asset('img/pizzas/portuguesa.jpg')  
         ]);

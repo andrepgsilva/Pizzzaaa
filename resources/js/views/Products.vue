@@ -8,7 +8,39 @@
             :imagesrc="product.image_url"
             :title="product.name"
             :description="product.description"
-          ></Card>
+            :subDescription="joinPizzaIngredientsNames(product.ingredients)"
+          >
+          <!-- AINDA É NECESSÁRIO COLOCAR O PREÇO E O BOTÃO DE COMPRA -->
+            <div class="flex justify-between mt-2">
+              <select 
+                name="pizzaSizes" 
+                class="bg-white block border border-gray-400 focus:outline-none focus:shadow-outline hover:border-gray-500 leading-tight mt-3 pr-8 px-4 py-1 rounded shadow"
+              >
+                <option 
+                  v-for="size in product.sizes"
+                  :key="size.id" 
+                  :value="size.id"
+                >
+                {{ size.name }}
+                </option>
+              </select> 
+              <select 
+                name="pizzaSizes" 
+                class="bg-white block border border-gray-400 focus:outline-none focus:shadow-outline hover:border-gray-500 leading-tight mt-3 pr-8 px-4 py-1 rounded shadow"
+              >
+                <option 
+                  :value="1"
+                >
+                {{ 1 }}
+                </option>
+              </select>
+            </div>
+            <div class="flex justify-between items-center mt-4">
+              <p> {{ product.price }}</p>
+
+              <button class="bg-red-600 px-6 py-2 rounded text-gray-100 font-semibold">Add to Cart</button>
+            </div>
+          </Card>
       </div>
       <paginate
         v-if="pagination.pageRange > 1"
@@ -56,6 +88,12 @@ export default {
       this.$store.dispatch("getProducts", toPage).then((response) => {
         this.products = response.data;
       });
+    },
+
+    joinPizzaIngredientsNames(ingredientsGroup) {
+      return ingredientsGroup.map(ingredient => {
+        return ingredient.name;
+      }).join(', ');
     }
   },
 };
