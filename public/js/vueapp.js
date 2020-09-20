@@ -86,10 +86,10 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Navbar.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Navbar.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AccountDropdown.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/AccountDropdown.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -108,6 +108,41 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['SignOutCallback', 'profilePhotoPath'],
+  data: function data() {
+    return {
+      isOpen: false
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    var handleEscape = function handleEscape(e) {
+      if (e.key === 'Esc' || e.key === 'Escape') {
+        _this.isOpen = false;
+      }
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    this.$once('hook:beforeDestroy', function () {
+      document.removeEventListener('keydown', handleEscape);
+    });
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Navbar.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Navbar.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AccountDropdown__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AccountDropdown */ "./resources/js/components/AccountDropdown.vue");
 //
 //
 //
@@ -154,14 +189,52 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       isOpen: false
     };
   },
+  components: {
+    AccountDropdown: _AccountDropdown__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
   props: {
     logosrc: String
+  },
+  computed: {
+    user: function user() {
+      return this.$store.state.user;
+    }
+  },
+  methods: {
+    logout: function logout() {
+      this.$store.dispatch('logout');
+      this.isOpen = false;
+    }
   }
 });
 
@@ -192,6 +265,75 @@ __webpack_require__.r(__webpack_exports__);
     Navbar: _components_Navbar__WEBPACK_IMPORTED_MODULE_0__["default"]
   }
 });
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AccountDropdown.vue?vue&type=template&id=4b30e2c3&":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/AccountDropdown.vue?vue&type=template&id=4b30e2c3& ***!
+  \******************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "relative" }, [
+    _c(
+      "button",
+      {
+        staticClass:
+          "relative z-10 block h-8 w-8 rounded-full overflow-hidden border-2 border-gray-600 focus:outline-none ",
+        on: {
+          click: function($event) {
+            _vm.isOpen = !_vm.isOpen
+          }
+        }
+      },
+      [
+        _c("img", {
+          staticClass: "h-full w-full object-cover",
+          attrs: { src: _vm.profilePhotoPath, alt: "Your avatar" }
+        })
+      ]
+    ),
+    _vm._v(" "),
+    _vm.isOpen
+      ? _c(
+          "div",
+          {
+            staticClass:
+              "absolute right-0 mt-2 py-2 w-48 bg-white rounded-lg shadow-xl"
+          },
+          [
+            _c(
+              "a",
+              {
+                staticClass: "block px-4 py-2 text-gray-800 hover:bg-gray-100",
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.SignOutCallback($event)
+                  }
+                }
+              },
+              [_vm._v("Sign out")]
+            )
+          ]
+        )
+      : _vm._e()
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
 
 /***/ }),
 
@@ -240,25 +382,23 @@ var render = function() {
             [_vm._v("Buy now!")]
           ),
           _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass:
-                "block lg:inline-block lg:mt-0 text-white hover:text-white ml-4",
-              attrs: { href: "#responsive-header" }
-            },
-            [_vm._v("Login")]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass:
-                "block lg:inline-block lg:mt-0 text-white hover:text-white ml-4",
-              attrs: { href: "#responsive-header" }
-            },
-            [_vm._v("Sign up")]
-          )
+          !_vm.user
+            ? _c(
+                "router-link",
+                {
+                  staticClass:
+                    "block lg:inline-block lg:mt-0 text-white hover:text-white ml-4",
+                  attrs: { to: { name: "login" } }
+                },
+                [_vm._v("\n        Sign in\n      ")]
+              )
+            : _c("AccountDropdown", {
+                staticClass: "hidden sm:block sm:ml-6",
+                attrs: {
+                  SignOutCallback: _vm.logout,
+                  profilePhotoPath: _vm.user.profilePhotoPath
+                }
+              })
         ],
         1
       ),
@@ -312,7 +452,10 @@ var render = function() {
     _vm._v(" "),
     _c(
       "div",
-      { staticClass: "px-2 pt-2 pb-4", class: _vm.isOpen ? "block" : "hidden" },
+      {
+        staticClass: "sm:block md:hidden lg:hidden px-2 pt-2 pb-4",
+        class: _vm.isOpen ? "block" : "hidden"
+      },
       [
         _c(
           "router-link",
@@ -324,25 +467,31 @@ var render = function() {
           [_vm._v("Buy now!")]
         ),
         _vm._v(" "),
-        _c(
-          "a",
-          {
-            staticClass:
-              "block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white ml-4",
-            attrs: { href: "#responsive-header" }
-          },
-          [_vm._v("Login")]
-        ),
-        _vm._v(" "),
-        _c(
-          "a",
-          {
-            staticClass:
-              "block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white ml-4",
-            attrs: { href: "#responsive-header" }
-          },
-          [_vm._v("Sign up")]
-        )
+        !_vm.user
+          ? _c(
+              "router-link",
+              {
+                staticClass:
+                  "block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white ml-4",
+                attrs: { to: { name: "login" } }
+              },
+              [_vm._v("Login")]
+            )
+          : _c(
+              "a",
+              {
+                staticClass:
+                  "block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-100 ml-4",
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.logout($event)
+                  }
+                }
+              },
+              [_vm._v("Logout")]
+            )
       ],
       1
     )
@@ -495,6 +644,75 @@ function normalizeComponent (
     options: options
   }
 }
+
+
+/***/ }),
+
+/***/ "./resources/js/components/AccountDropdown.vue":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/AccountDropdown.vue ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AccountDropdown_vue_vue_type_template_id_4b30e2c3___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AccountDropdown.vue?vue&type=template&id=4b30e2c3& */ "./resources/js/components/AccountDropdown.vue?vue&type=template&id=4b30e2c3&");
+/* harmony import */ var _AccountDropdown_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AccountDropdown.vue?vue&type=script&lang=js& */ "./resources/js/components/AccountDropdown.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _AccountDropdown_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AccountDropdown_vue_vue_type_template_id_4b30e2c3___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AccountDropdown_vue_vue_type_template_id_4b30e2c3___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/AccountDropdown.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/AccountDropdown.vue?vue&type=script&lang=js&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/AccountDropdown.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountDropdown_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./AccountDropdown.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AccountDropdown.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountDropdown_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/AccountDropdown.vue?vue&type=template&id=4b30e2c3&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/components/AccountDropdown.vue?vue&type=template&id=4b30e2c3& ***!
+  \************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountDropdown_vue_vue_type_template_id_4b30e2c3___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./AccountDropdown.vue?vue&type=template&id=4b30e2c3& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AccountDropdown.vue?vue&type=template&id=4b30e2c3&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountDropdown_vue_vue_type_template_id_4b30e2c3___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountDropdown_vue_vue_type_template_id_4b30e2c3___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
 
 
 /***/ }),

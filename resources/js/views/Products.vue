@@ -78,6 +78,8 @@ export default {
 
       this.products = response.data;
     });
+
+    this.$store.dispatch('routeForTest');
   },
 
   methods: {

@@ -9,14 +9,21 @@
           :to="{ name: 'products' }"
           class="inline-block text-md px-4 py-2 leading-none border rounded text-white hover:text-gray-100 bg-yellow-300 border-yellow-300 hover:border-transparent lg:mt-0"
         >Buy now!</router-link>
-        <a
-          href="#responsive-header"
+
+        <router-link
+          :to="{ name: 'login' }"
           class="block lg:inline-block lg:mt-0 text-white hover:text-white ml-4"
-        >Login</a>
-        <a
-          href="#responsive-header"
-          class="block lg:inline-block lg:mt-0 text-white hover:text-white ml-4"
-        >Sign up</a>
+          v-if="! user"
+        >
+          Sign in
+        </router-link>
+
+        <AccountDropdown 
+          v-else 
+          :SignOutCallback="logout" 
+          class="hidden sm:block sm:ml-6"
+          :profilePhotoPath="user.profilePhotoPath"
+        />
       </div>
 
       <div class="sm:block md:hidden lg:hidden">
@@ -40,24 +47,29 @@
         </button>
       </div>
     </div>
-    <div :class="isOpen ? 'block' : 'hidden'" class="px-2 pt-2 pb-4">
+    <div :class="isOpen ? 'block' : 'hidden'" class="sm:block md:hidden lg:hidden px-2 pt-2 pb-4">
       <router-link
         :to="{ name: 'products' }"
         class="inline-block text-md px-4 py-2 leading-none border rounded bg-yellow-400 hover:text-gray-100 border-yellow-400 hover:border-transparent mt-4 lg:mt-0"
       >Buy now!</router-link>
-      <a
-        href="#responsive-header"
+      <router-link
+        :to="{ name: 'login' }"
         class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white ml-4"
-      >Login</a>
-      <a
-        href="#responsive-header"
-        class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white ml-4"
-      >Sign up</a>
+        v-if="! user"
+      >Login</router-link>
+      <a 
+        v-else
+        href="#"
+        class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-100 ml-4" 
+        @click.prevent="logout"
+      >Logout</a>
     </div>
   </header>
 </template>
 
 <script>
+import AccountDropdown from './AccountDropdown';
+
 export default {
   data() {
     return {
@@ -65,8 +77,25 @@ export default {
     };
   },
 
+  components: {
+    AccountDropdown,
+  },
+
   props: {
     logosrc: String,
   },
-};
+
+  computed: {
+    user() {
+      return this.$store.state.user;
+    }
+  },
+
+  methods: {
+    logout() {
+      this.$store.dispatch('logout');
+      this.isOpen = false;
+    }
+  },
+}
 </script>

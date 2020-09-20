@@ -7,8 +7,10 @@ import router from './routes';
 import store from './store';
 import Home from './views/Home';
 import Products from './views/Products';
-import Paginate from 'vuejs-paginate'
+import Paginate from 'vuejs-paginate';
+import Vuelidate from 'vuelidate';
 
+Vue.use(Vuelidate);
 Vue.use(VueRouter);
 Vue.component('Paginate', Paginate);
 

@@ -208,6 +208,7 @@ __webpack_require__.r(__webpack_exports__);
       _this.pagination.pageRange = response.meta.last_page;
       _this.products = response.data;
     });
+    this.$store.dispatch('routeForTest');
   },
   methods: {
     paginationChangeCallback: function paginationChangeCallback(toPage) {
