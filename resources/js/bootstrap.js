@@ -13,30 +13,30 @@ window.axios.defaults.withCredentials = true;
 
 window.axios.defaults.baseURL = 'http://pizzzaaa.test/api/';
 
-window.axios.interceptors.response.use(
-  function(response) {
-      // console.log('deu tudo certo')
-      // Call was successful, don't do anything special.
-      return response;
-  },
-  function (error) {
-    console.log('deu merda')
-  switch (error.response.status) {
-      case 401: // Not logged in
-        // console.log('Ele não está logado!')
-      case 419: // Session expired
-      case 503: // Down for maintenance
-          // Bounce the user to the login screen with a redirect back
-          // window.location.reload();
-          break;
-      case 500:
-          // alert('Oops, something went wrong!  The team have been notified.');
-          break;
-      default:
-          // Allow individual requests to handle other errors
-          return Promise.reject(error);
-  }
-});
+// window.axios.interceptors.response.use(
+//   function(response) {
+//       // console.log('deu tudo certo')
+//       // Call was successful, don't do anything special.
+//       return response;
+//   },
+//   function (error) {
+//     console.log('deu merda')
+//   switch (error.response.status) {
+//       case 401: // Not logged in
+//         // console.log('Ele não está logado!')
+//       case 419: // Session expired
+//       case 503: // Down for maintenance
+//           // Bounce the user to the login screen with a redirect back
+//           // window.location.reload();
+//           break;
+//       case 500:
+//           // alert('Oops, something went wrong!  The team have been notified.');
+//           break;
+//       default:
+//           // Allow individual requests to handle other errors
+//           return Promise.reject(error);
+//   }
+// });
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting

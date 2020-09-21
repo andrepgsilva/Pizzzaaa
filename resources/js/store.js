@@ -93,6 +93,22 @@ const store = new Vuex.Store({
         });
     },
 
+    forgotPassword(context, email) {
+      axios.post('/password/email', {email})
+    },
+
+    resetPassword(context, data) {
+      return new Promise((resolve, reject) => {
+        axios.post('/password/reset', data)
+          .then(response => {
+            resolve(response); 
+          })
+          .catch(error => {
+            reject(error);
+          })
+      });
+    },
+
     async routeForTest(context) {
       const response = await axios.get('/user')
       console.log(response.data)

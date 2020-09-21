@@ -3,6 +3,8 @@ import Home from './views/Home';
 import Products from './views/Products';
 import Login from './views/Login';
 import Register from './views/Register';
+import ForgotPassword from './views/ForgotPassword';
+import ResetPassword from './views/ResetPassword';
 
 const router = new VueRouter({
   mode: 'history',
@@ -28,7 +30,17 @@ const router = new VueRouter({
       path: '/register',
       name: 'register',
       component: Register,
-    }
+    },
+    {
+      path: '/forgot-password',
+      name: 'forgot-password',
+      component: ForgotPassword,
+    },
+    {
+      path: '/reset-password',
+      name: 'reset-password',
+      component: ResetPassword,
+    },
   ],
 })
 

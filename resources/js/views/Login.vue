@@ -45,10 +45,10 @@
             type="button"
             @click.prevent="login"
           >Sign In</button>
-          <a
+          <router-link
             class="inline-block underline align-baseline font-bold text-sm text-red-600 hover:text-red-800"
-            href="#"
-          >Forgot Password?</a>
+            :to="{ name: 'forgot-password' }"
+          >Forgot Password?</router-link>
         </div>
         <div class="signup-call underline font-bold text-sm text-red-600 hover:text-red-800 mt-5">
           <router-link :to="{ name: 'register' }"> Don't have any account? Click here! </router-link>
@@ -95,9 +95,9 @@ export default {
   methods: {
     login() {
       // Verify form errors
-      this.errors = this.$v.form.$invalid;
+      this.formHasErrors = this.$v.form.$invalid;
 
-      if (this.errors) return;
+      if (this.formHasErrors) return;
 
       this.$store.dispatch('login', this.form)
         .then(response => {
