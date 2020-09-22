@@ -219,12 +219,17 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     joinPizzaIngredientsNames: function joinPizzaIngredientsNames(ingredientsGroup) {
-      return ingredientsGroup.map(function (ingredient) {
+      var maxChars = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+      var ingredients = ingredientsGroup.map(function (ingredient) {
         return ingredient.name;
       }).join(", ");
+      return maxChars ? this.setTextLimit(ingredients, maxChars) : ingredients;
     },
     getLimitForStock: function getLimitForStock(productStock) {
       return productStock < 10 ? productStock : 10;
+    },
+    setTextLimit: function setTextLimit(text, limit) {
+      return text.length > limit ? text.substr(0, limit) + '...' : text;
     }
   }
 });
@@ -1019,7 +1024,8 @@ var render = function() {
                   title: product.name,
                   description: product.description,
                   subDescription: _vm.joinPizzaIngredientsNames(
-                    product.ingredients
+                    product.ingredients,
+                    "25"
                   )
                 }
               },

@@ -8,7 +8,7 @@
           :imagesrc="product.image_url"
           :title="product.name"
           :description="product.description"
-          :subDescription="joinPizzaIngredientsNames(product.ingredients)"
+          :subDescription="joinPizzaIngredientsNames(product.ingredients, '25')"
         >
           <!-- AINDA É NECESSÁRIO COLOCAR O PREÇO E O BOTÃO DE COMPRA -->
           <div class="flex justify-between mt-2">
@@ -89,16 +89,22 @@ export default {
       });
     },
 
-    joinPizzaIngredientsNames(ingredientsGroup) {
-      return ingredientsGroup
+    joinPizzaIngredientsNames(ingredientsGroup, maxChars = 0) {
+      let ingredients = ingredientsGroup
         .map((ingredient) => {
           return ingredient.name;
         })
         .join(", ");
+        
+        return maxChars ? this.setTextLimit(ingredients, maxChars): ingredients; 
     },
 
     getLimitForStock(productStock) {
       return productStock < 10 ? productStock : 10;  
+    },
+
+    setTextLimit(text, limit) {
+      return text.length > limit ? text.substr(0, limit) + '...' : text; 
     }
   },
 };

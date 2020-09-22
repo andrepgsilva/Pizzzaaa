@@ -4,26 +4,29 @@
       <div class="flex">
         <router-link to="/"><img class="h-10" :src="logosrc" alt="Pizzzaaa company logo" /></router-link>
       </div>
-      <div class="hidden md:flex lg:flex items-center">
-        <router-link
-          :to="{ name: 'products' }"
-          class="inline-block text-md px-4 py-2 leading-none border rounded text-white hover:text-gray-100 bg-yellow-300 border-yellow-300 hover:border-transparent lg:mt-0"
-        >Buy now!</router-link>
+      <div class="flex items-center">
+        <Cart></Cart>
+        <div class="hidden md:flex lg:flex items-center">
+          <router-link
+            :to="{ name: 'products' }"
+            class="inline-block text-md px-4 py-2 leading-none border rounded text-white hover:text-gray-100 bg-yellow-300 border-yellow-300 hover:border-transparent lg:mt-0"
+          >Buy now!</router-link>
 
-        <router-link
-          :to="{ name: 'login' }"
-          class="block lg:inline-block lg:mt-0 text-white hover:text-white ml-4"
-          v-if="! user"
-        >
-          Sign in
-        </router-link>
+          <router-link
+            :to="{ name: 'login' }"
+            class="block lg:inline-block lg:mt-0 text-white hover:text-white ml-4"
+            v-if="! user"
+          >
+            Sign in
+          </router-link>
 
-        <AccountDropdown 
-          v-else 
-          :SignOutCallback="logout" 
-          class="hidden sm:block sm:ml-6"
-          :profilePhotoPath="user.profilePhotoPath"
-        />
+          <AccountDropdown 
+            v-else 
+            :SignOutCallback="logout" 
+            class="hidden sm:block sm:ml-6"
+            :profilePhotoPath="user.profilePhotoPath"
+          />
+        </div>
       </div>
 
       <div class="sm:block md:hidden lg:hidden">
@@ -69,6 +72,7 @@
 
 <script>
 import AccountDropdown from './AccountDropdown';
+import Cart from './Cart';
 
 export default {
   data() {
@@ -79,6 +83,7 @@ export default {
 
   components: {
     AccountDropdown,
+    Cart,
   },
 
   props: {
