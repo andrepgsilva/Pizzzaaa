@@ -5,12 +5,17 @@
         <router-link to="/"><img class="h-10" :src="logosrc" alt="Pizzzaaa company logo" /></router-link>
       </div>
       <div class="flex items-center">
-        <Cart></Cart>
+        <router-link v-if="totalCartItems" :to="{ name: 'cart' }">
+          <Cart :totalQuantity="totalCartItems"></Cart>
+        </router-link>
+        
+        <Cart v-else :totalQuantity="totalCartItems"></Cart>
+
         <div class="hidden md:flex lg:flex items-center">
           <router-link
             :to="{ name: 'products' }"
             class="inline-block text-md px-4 py-2 leading-none border rounded text-white hover:text-gray-100 bg-yellow-300 border-yellow-300 hover:border-transparent lg:mt-0"
-          >Buy now!</router-link>
+          >Our Pizzas</router-link>
 
           <router-link
             :to="{ name: 'login' }"
@@ -93,6 +98,10 @@ export default {
   computed: {
     user() {
       return this.$store.state.user;
+    },
+
+    totalCartItems() {
+      return this.$store.state.cart.totalItems;
     }
   },
 

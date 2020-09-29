@@ -23,6 +23,7 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
+        "dinero.js": "^1.8.1",
         "vue": "^2.6.12",
         "vue-router": "^3.4.3",
         "vuejs-paginate": "^2.1.0",

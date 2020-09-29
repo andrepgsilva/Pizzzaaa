@@ -25,15 +25,15 @@ class DatabaseSeeder extends Seeder
         $olive = Ingredient::create(['name' => 'Olive']);
         $meat = Ingredient::create(['name' => 'Meat']);
         $fries = Ingredient::create(['name' => 'Fries']);
+        $chocolateIngredient = Ingredient::create(['name' => 'Chocolate']);
 
-        $small = Size::create(['name' => 'Small']);
         $medium = Size::create(['name' => 'Medium']);
         $family = Size::create(['name' => 'Family']);
+        $small = Size::create(['name' => 'Small']);
 
         $fourCheeses = Product::create([
             'name' => 'Four Cheeses',
             'description' => 'For the lovers of cheese!',
-            'price' => 2000, 
             'image_url' => asset('img/pizzas/4_cheeses.jpeg')    
         ]);
 
@@ -44,21 +44,28 @@ class DatabaseSeeder extends Seeder
             $cheddar->id,
         ]);
 
-        $fourCheeses->sizes()->attach([
-            $small->id,
-            $medium->id,
-            $family->id,
+        $fourCheeses->sizes()->attach($medium->id, ['price' => 3000]);
+        $fourCheesesMedium = Stock::create([
+            'product_variation_id' => 1,
+            'quantity' => 10,
         ]);
 
-        Stock::create([
-            'product_id' => $fourCheeses->id,
-            'quantity' => 4,
+        $fourCheeses->sizes()->attach($family->id, ['price' => 4000]);
+        $fourCheesesFamily = Stock::create([
+            'product_variation_id' => 2,
+            'quantity' => 5,
         ]);
+
+        $fourCheeses->sizes()->attach($small->id, ['price' => 2000]);
+        $fourCheesesSmall = Stock::create([
+            'product_variation_id' => 3,
+            'quantity' => 2,
+        ]);
+
 
         $chicken = Product::create([
             'name' => 'Chicken',
             'description' => 'Simple and delicious!',
-            'price' => 3000, 
             'image_url' => asset('img/pizzas/chicken.jpg')     
         ]);
 
@@ -67,44 +74,56 @@ class DatabaseSeeder extends Seeder
             $mozzarela->id
         ]);
 
-        $chicken->sizes()->attach([
-            $small->id,
-            $medium->id,
-            $family->id,
+        $chicken->sizes()->attach($medium->id, ['price' => 3500]);
+        $chickenMedium = Stock::create([
+            'product_variation_id' => 4,
+            'quantity' => 15,
         ]);
 
-        Stock::create([
-            'product_id' => $chicken->id,
-            'quantity' => 6,
+        $chicken->sizes()->attach($family->id, ['price' => 4500]);
+        $chickenFamily = Stock::create([
+            'product_variation_id' => 5,
+            'quantity' => 7,
+        ]);
+
+        $chicken->sizes()->attach($small->id, ['price' => 3000]);
+        $chickenSmall = Stock::create([
+            'product_variation_id' => 6,
+            'quantity' => 1,
         ]);
 
         $chocolate = Product::create([
             'name' => 'Chocolate',
-            'description' => 'So sweeetttt!',
-            'price' => 1522, 
+            'description' => 'So sweeetttt!', 
             'image_url' => asset('img/pizzas/chocolate.jpg')     
         ]);
 
         $chocolate->ingredients()->attach([
-            $chocolate->id,
+            $chocolateIngredient->id,
             $mozzarela->id,
         ]);
 
-        $chocolate->sizes()->attach([
-            $small->id,
-            $medium->id,
-            $family->id,
+        $chocolate->sizes()->attach($medium->id, ['price' => 5500]);
+        $chocolateMedium = Stock::create([
+            'product_variation_id' => 7,
+            'quantity' => 15,
         ]);
 
-        Stock::create([
-            'product_id' => $chocolate->id,
-            'quantity' => 2,
+        $chocolate->sizes()->attach($family->id, ['price' => 6500]);
+        $chocolateFamily = Stock::create([
+            'product_variation_id' => 8,
+            'quantity' => 7,
+        ]);
+
+        $chocolate->sizes()->attach($small->id, ['price' => 4100]);
+        $chocolateSmall = Stock::create([
+            'product_variation_id' => 9,
+            'quantity' => 1,
         ]);
 
         $meatAndFries = Product::create([
             'name' => 'Meat and Fries',
             'description' => 'One of our best pizzas!',
-            'price' => 4000, 
             'image_url' => asset('img/pizzas/meat_and_fries.jpeg')     
         ]);
 
@@ -114,28 +133,28 @@ class DatabaseSeeder extends Seeder
             $mozzarela->id,
         ]);
 
-        $meatAndFries->sizes()->attach([
-            $small->id,
-            $medium->id,
-            $family->id,
+        $meatAndFries->sizes()->attach($medium->id, ['price' => 4600]);
+        $meatAndFriesMedium = Stock::create([
+            'product_variation_id' => 10,
+            'quantity' => 5,
         ]);
 
-        Stock::create([
-            'product_id' => $meatAndFries->id,
-            'quantity' => 8,
+        $meatAndFries->sizes()->attach($family->id, ['price' => 5700]);
+        $meatAndFriesFamily = Stock::create([
+            'product_variation_id' => 11,
+            'quantity' => 10,
+        ]);
+
+        $meatAndFries->sizes()->attach($small->id, ['price' => 4000]);
+        $meatAndFriesSmall = Stock::create([
+            'product_variation_id' => 12,
+            'quantity' => 3,
         ]);
 
         $portuguesa = Product::create([
             'name' => 'Portuguesa',
-            'description' => 'The amazing portuguese pizza!',
-            'price' => 2320, 
+            'description' => 'The portuguese pizza!', 
             'image_url' => asset('img/pizzas/portuguesa.jpg')  
-        ]);
-
-        $portuguesa->sizes()->attach([
-            $small->id,
-            $medium->id,
-            $family->id,
         ]);
 
         $portuguesa->ingredients()->attach([
@@ -143,8 +162,21 @@ class DatabaseSeeder extends Seeder
             $mozzarela->id,
         ]);
 
-        Stock::create([
-            'product_id' => $portuguesa->id,
+        $portuguesa->sizes()->attach($medium->id, ['price' => 3500]);
+        $portuguesaMedium = Stock::create([
+            'product_variation_id' => 13,
+            'quantity' => 8,
+        ]);
+
+        $portuguesa->sizes()->attach($family->id, ['price' => 5500]);
+        $portuguesaFamily = Stock::create([
+            'product_variation_id' => 14,
+            'quantity' => 4,
+        ]);
+
+        $portuguesa->sizes()->attach($small->id, ['price' => 2900]);
+        $portuguesaSmall = Stock::create([
+            'product_variation_id' => 15,
             'quantity' => 1,
         ]);
     }

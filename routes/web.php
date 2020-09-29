@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\Product;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Database\Eloquent\Builder;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +19,13 @@ Route::get('/reset-password', function() {
     return view('vueapp');
 })->name('password.reset');
 
+// Route::get('/test', function() {
+//     $products = Product::whereHas('stock', function (Builder $query) {
+//         $query->where('quantity', 4);
+//     })->get();
+
+//     return $products;
+// });
 Route::get('/{any}', function(){
     return view('vueapp');
 })->where('any', '.*');

@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Models\Product;
+use App\Helpers\Paginator;
+use App\Models\ProductVariation;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\ProductResource;
 
 class ProductsController extends Controller
 {
-    public function index()
+    public function index(ProductVariation $productVariation)
     {
-        $productsResource = ProductResource::collection(Product::highestPrices()->paginate(15));
+        $products = $productVariation->productsWithVariations();
         
-        return $productsResource; 
+        return Paginator::paginate($products, 15);
     }
 }

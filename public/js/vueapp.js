@@ -150,8 +150,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'Cart'
+  name: 'Cart',
+  props: ['totalQuantity']
 });
 
 /***/ }),
@@ -167,6 +171,11 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _AccountDropdown__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AccountDropdown */ "./resources/js/components/AccountDropdown.vue");
 /* harmony import */ var _Cart__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Cart */ "./resources/js/components/Cart.vue");
+//
+//
+//
+//
+//
 //
 //
 //
@@ -257,6 +266,9 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     user: function user() {
       return this.$store.state.user;
+    },
+    totalCartItems: function totalCartItems() {
+      return this.$store.state.cart.totalItems;
     }
   },
   methods: {
@@ -381,41 +393,35 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
+  return _c(
+    "div",
+    {
+      staticClass:
+        "bg-white border-2 border-yellow-300 flex h-8 items-center justify-end mr-1 px-2 rounded"
+    },
+    [
+      _c("img", {
+        staticClass: "mx-1 w-6",
+        attrs: { src: "img/shopping-cart.svg", alt: "Shopping Cart Icon" }
+      }),
+      _vm._v(" "),
+      _c("p", { staticClass: "font-semibold text-yellow-300 pr-1" }, [
+        _vm._v("Cart")
+      ]),
+      _vm._v(" "),
+      _c("p", {
         staticClass:
-          "bg-white border-2 border-yellow-300 flex h-8 items-center justify-end mr-1 px-2 rounded"
-      },
-      [
-        _c("img", {
-          staticClass: "mx-1 w-6",
-          attrs: { src: "img/shopping-cart.svg", alt: "Shopping Cart Icon" }
-        }),
-        _vm._v(" "),
-        _c("p", { staticClass: "font-semibold text-yellow-300 pr-1" }, [
-          _vm._v("Cart")
-        ]),
-        _vm._v(" "),
-        _c(
-          "p",
-          {
-            staticClass:
-              "bg-yellow-300 font-semibold rounded-full text-center text-white w-6"
-          },
-          [_vm._v("5")]
-        )
-      ]
-    )
-  }
-]
+          "bg-yellow-300 font-semibold rounded-full text-center text-white w-6",
+        domProps: {
+          textContent: _vm._s(
+            _vm.totalQuantity < 100 ? _vm.totalQuantity : "99+"
+          )
+        }
+      })
+    ]
+  )
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -457,7 +463,14 @@ var render = function() {
         "div",
         { staticClass: "flex items-center" },
         [
-          _c("Cart"),
+          _vm.totalCartItems
+            ? _c(
+                "router-link",
+                { attrs: { to: { name: "cart" } } },
+                [_c("Cart", { attrs: { totalQuantity: _vm.totalCartItems } })],
+                1
+              )
+            : _c("Cart", { attrs: { totalQuantity: _vm.totalCartItems } }),
           _vm._v(" "),
           _c(
             "div",
@@ -470,7 +483,7 @@ var render = function() {
                     "inline-block text-md px-4 py-2 leading-none border rounded text-white hover:text-gray-100 bg-yellow-300 border-yellow-300 hover:border-transparent lg:mt-0",
                   attrs: { to: { name: "products" } }
                 },
-                [_vm._v("Buy now!")]
+                [_vm._v("Our Pizzas")]
               ),
               _vm._v(" "),
               !_vm.user

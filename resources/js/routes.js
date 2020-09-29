@@ -5,6 +5,7 @@ import Login from './views/Login';
 import Register from './views/Register';
 import ForgotPassword from './views/ForgotPassword';
 import ResetPassword from './views/ResetPassword';
+import Cart from './views/Cart';
 
 const router = new VueRouter({
   mode: 'history',
@@ -19,6 +20,11 @@ const router = new VueRouter({
       path: '/products',
       name: 'products',
       component: Products,
+    },
+    {
+      path: '/my-cart',
+      name: 'cart',
+      component: Cart,
     },
     {
       path: '/login',
