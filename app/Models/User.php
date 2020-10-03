@@ -2,14 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\Order;
+use Laravel\Cashier\Billable;
+use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\Passwords\CanResetPassword;
-// use Laravel\Fortify\TwoFactorAuthenticatable;
-// use Laravel\Jetstream\HasProfilePhoto;
-use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
@@ -17,6 +16,7 @@ class User extends Authenticatable
     use HasFactory;
     use Notifiable;
     use CanResetPassword;
+    use Billable;
     // use HasProfilePhoto;
     // use TwoFactorAuthenticatable;
 
@@ -67,5 +67,10 @@ class User extends Authenticatable
         static::creating(function ($user) {
             $user->profile_photo_path = asset('img/generic-user.png');
         });
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 }

@@ -21,9 +21,14 @@
     </head>
     <body>
         <div id="app">
-            <vueapp/>        
+            <vueapp/>    
         </div>
 
+        @if(env('APP_ENV') == 'local')
+            <script src="{{ env('STRIPE_URL_TEST') }}"></script>            
+        @else
+            <script src="{{ env('STRIPE_URL') }}"></script>
+        @endif
         <script type="text/javascript" src="js/app.js"></script>
     </body>
 </html>

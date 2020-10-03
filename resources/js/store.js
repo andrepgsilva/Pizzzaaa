@@ -7,13 +7,13 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
-    cart: JSON.parse(window.localStorage.getItem('cart'))['cart'] || {
-      totalItems: 0,
-      totalPrice: 0,
-      items: [],
-    },
+    cart: helpers.getCartFromLocalStorage(),
     products: [],
     user: null || JSON.parse(window.localStorage.getItem('user')),
+    cartVerifiedByServer: false,
+    cardInformationErrorMessage: null,
+    showPaymentModal: false,
+    showOrderConfirmedModal: false,
   },
 
   mutations: {
@@ -41,42 +41,48 @@ const store = new Vuex.Store({
       const product = state.cart.items[payload.productCartIndex]; 
       product['logistics'].push(payload.productVariation);
     },
-
-
-    addVariationQuantity(state, payload) {
-      let { 
-        productCartIndex, 
-        variationCartIndex, 
-        variationQuantityChoosed 
-      } = payload;
-      
-      variationQuantityChoosed = parseInt(variationQuantityChoosed);
-      const variation = state.cart.items[productCartIndex]['logistics'][variationCartIndex];
-      const productQuantity = variation['productQuantityChoosed'];
-      variation['productQuantityChoosed'] = parseInt(productQuantity) +  variationQuantityChoosed;
-    },
-
+    
     changeVariationQuantity(state, payload) {
       let { 
         productCartIndex, 
         variationCartIndex, 
-        variationQuantityChoosed 
+        variationQuantityChoosed,
+        operation,
       } = payload;
-      
+
       variationQuantityChoosed = parseInt(variationQuantityChoosed);
       const variation = state.cart.items[productCartIndex]['logistics'][variationCartIndex];
-      variation['productQuantityChoosed'] = variationQuantityChoosed;
+
+      const operations = {
+        equal() { variation['productQuantityChoosed'] = variationQuantityChoosed; },
+        sum() { 
+          variation['productQuantityChoosed'] = parseInt(productQuantity) +  variationQuantityChoosed; 
+        },
+        subtract() {
+          variation['productQuantityChoosed'] = parseInt(productQuantity) -  variationQuantityChoosed;
+        },
+      };
+
+      operations[operation]();
     },
 
     setTotalItems(state, quantity) {
       state.cart.totalItems = parseInt(state.cart.totalItems) + parseInt(quantity);
     },
 
-    changeTotalPrice(state, value) {
-      state.cart.totalPrice += value;
+    changeTotalPrice(state, payload) {
+      const { value, operation } = payload;
+
+      const operations = {
+        equal() { state.cart.totalPrice = value },
+        sum() { state.cart.totalPrice += value },
+        subtract() { state.cart.totalPrice -= value }
+      }
+
+      operations[operation]();
     },
 
-    updateTotalPrice(state) {
+    sumItemsVariationsPrice(state) {
       let totalPrice = 0;
       
       state.cart.items.forEach(item => {
@@ -126,6 +132,23 @@ const store = new Vuex.Store({
       if (state.cart.items[productIndex]['logistics'].length == 0) {
         state.cart.items.splice(productIndex, 1);
       }
+
+    },
+
+    setCartVerification(state, value) {
+      state.cartVerifiedByServer = value; 
+    },
+
+    changeCardNotificationMessage(state, message) {
+      state.cardInformationErrorMessage = message;
+    },
+
+    changeShowPaymentModal(state, value) {
+      state.showPaymentModal = value;
+    },
+
+    changeShowOrderConfirmedModal(state, value) {
+      state.showOrderConfirmedModal = value;
     },
   },
 
@@ -221,7 +244,9 @@ const store = new Vuex.Store({
       context.commit('setTotalItems', variationQuantityChoosed);
 
       productVariation['totalPrice'] = variationQuantityChoosed * productVariation['price'];
-      context.commit('changeTotalPrice', productVariation['totalPrice']);
+      context.commit('changeTotalPrice', { value: productVariation['totalPrice'], operation: 'sum' });
+
+      context.commit('setCartVerification', false);
 
       if (productCartIndex == null) { 
         context.commit('addProductToCart', data)
@@ -237,14 +262,53 @@ const store = new Vuex.Store({
 
       const productVariationOnCart = cart.items[productCartIndex]['logistics'][variationCartIndex];
       productVariationOnCart['totalPrice'] += productVariation['price'] * variationQuantityChoosed;
-      context.commit('updateTotalPrice');
+      context.commit('sumItemsVariationsPrice');
       
-      context.commit('addVariationQuantity', { productCartIndex, variationCartIndex, variationQuantityChoosed });
+      context.commit('changeVariationQuantity', { 
+        productCartIndex, 
+        variationCartIndex, 
+        variationQuantityChoosed,
+        operation: 'sum',
+      });
       helpers.updateLocalStorageCart(context.state.cart);
     },
 
     clearCart(context) {
       context.commit('removeAllItemsForCart');
+    },
+
+    checkPurchase(context) {
+      let { productsVariation, itemsIds } = helpers.getProductsVariationsInCart(context.state.cart);
+
+      return new Promise((resolve, reject) => {
+        return axios.post('/check-purchase', {
+          items: productsVariation,
+          totalPrice: context.state.cart.totalPrice,
+          itemsIds: itemsIds,
+        })
+          .then(response => {
+            resolve(response);
+          })
+          .catch(error => {
+            reject(error);
+          })
+      })
+    },
+
+    processChargeClient(context, payload) {
+      let { productsVariation, itemsIds } = helpers.getProductsVariationsInCart(context.state.cart);
+      payload.productsVariation = productsVariation;
+      payload.itemsIds = itemsIds;
+
+      return new Promise((resolve, reject) => {
+        return axios.post('/charge-client', payload)
+          .then(response => {
+            resolve(response);
+          })
+          .catch(error => {
+            reject(error);
+          })
+      })
     },
 
     async routeForTest(context) {

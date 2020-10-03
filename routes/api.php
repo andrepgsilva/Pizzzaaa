@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\PaymentsController;
 use App\Http\Controllers\API\ProductsController;
 use App\Http\Controllers\API\Auth\LoginController;
 use App\Http\Controllers\API\Auth\RegisterController;
@@ -25,6 +26,8 @@ Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth:san
 
 Route::post('/register', [RegisterController::class, 'register']);
 Route::get('/products', [ProductsController::class, 'index']);
+Route::post('/check-purchase', [PaymentsController::class, 'checkPurchase'])->middleware('auth:sanctum');
+Route::post('/charge-client', [PaymentsController::class, 'chargeClient'])->middleware('auth:sanctum');
 Route::post('/password/email', [ForgotPasswordController::class, 'forgot']);
 Route::post('/password/reset', [ForgotPasswordController::class, 'reset']);
 
