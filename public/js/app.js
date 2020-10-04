@@ -25174,13 +25174,14 @@ var staticRenderFns = [
         _c(
           "th",
           {
-            staticClass: "hidden sm:block md:block lg:block px-4 py-2",
+            staticClass:
+              "hidden sm:table-cell md:table-cell lg:table-cell px-4 py-2",
             attrs: { colspan: "2" }
           },
           [_vm._v("Quantity")]
         ),
         _vm._v(" "),
-        _c("th", { staticClass: "block sm:hidden md:hidden lg:hidden" }, [
+        _c("th", { staticClass: "py-2 block sm:hidden md:hidden lg:hidden" }, [
           _vm._v("Quantity")
         ]),
         _vm._v(" "),

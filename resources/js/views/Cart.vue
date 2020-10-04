@@ -5,8 +5,8 @@
         <table class="table-fixed w-full" v-if="!!cartItems.length">
           <thead>
             <tr>
-              <th colspan="2" class="hidden sm:block md:block lg:block px-4 py-2">Quantity</th>
-              <th class="block sm:hidden md:hidden lg:hidden">Quantity</th>
+              <th colspan="2" class="hidden sm:table-cell md:table-cell lg:table-cell px-4 py-2">Quantity</th>
+              <th class="py-2 block sm:hidden md:hidden lg:hidden">Quantity</th>
               <th class="px-4 py-2">Product</th>
               <th class="px-4 py-2">Size</th>
               <th class="px-4 py-2">Price</th>
