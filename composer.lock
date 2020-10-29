@@ -4,8 +4,61 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "62f07d1c225891d256c20f915a5d8674",
+    "content-hash": "c2f57f5073c2a79c259690d49595520c",
     "packages": [
+        {
+            "name": "andrepgsilva/lara-array-pagination",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/andrepgsilva/LaraArrayPagination.git",
+                "reference": "288678c6bcab43de0757314ba88dfa05b617c0e3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/andrepgsilva/LaraArrayPagination/zipball/288678c6bcab43de0757314ba88dfa05b617c0e3",
+                "reference": "288678c6bcab43de0757314ba88dfa05b617c0e3",
+                "shasum": ""
+            },
+            "require-dev": {
+                "laravel/framework": "^8.11",
+                "orchestra/testbench": "^6.3"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Andrepgsilva\\LaraArrayPagination\\Providers\\LaraArrayPaginationServiceProvider"
+                    ],
+                    "dont-discover": [
+                        "*"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "App\\": "app/",
+                    "Andrepgsilva\\LaraArrayPagination\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andre Silva",
+                    "email": "andrepgsilva@outlook.com"
+                }
+            ],
+            "description": "Make Laravel Pagination works with array",
+            "support": {
+                "issues": "https://github.com/andrepgsilva/LaraArrayPagination/issues",
+                "source": "https://github.com/andrepgsilva/LaraArrayPagination/tree/dev"
+            },
+            "time": "2020-10-29T23:11:55+00:00"
+        },
         {
             "name": "asm89/stack-cors",
             "version": "v2.0.1",
@@ -7723,12 +7776,14 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "andrepgsilva/lara-array-pagination": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^7.3"
     },
     "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "plugin-api-version": "2.0.0"
 }
